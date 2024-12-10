@@ -15,7 +15,7 @@ public class UserManagementController {
     private UsersManagementService usersManagementService;
 
     @PostMapping("/auth/register")
-    public ResponseEntity<ReqRes> regeister(@RequestBody ReqRes reg){
+    public ResponseEntity<ReqRes> register(@RequestBody ReqRes reg){
         return ResponseEntity.ok(usersManagementService.register(reg));
     }
 
@@ -29,24 +29,22 @@ public class UserManagementController {
         return ResponseEntity.ok(usersManagementService.refreshToken(req));
     }
 
-    @GetMapping("/admin/get-all-users")
+    @GetMapping("/manager/get-all-users")
     public ResponseEntity<ReqRes> getAllUsers(){
         return ResponseEntity.ok(usersManagementService.getAllUsers());
-
     }
 
-    @GetMapping("/admin/get-users/{userId}")
-    public ResponseEntity<ReqRes> getUSerByID(@PathVariable Integer userId){
+    @GetMapping("/manager/get-users/{userId}")
+    public ResponseEntity<ReqRes> getUserByID(@PathVariable Integer userId){
         return ResponseEntity.ok(usersManagementService.getUsersById(userId));
-
     }
 
-    @PutMapping("/admin/update/{userId}")
+    @PutMapping("/manager/update/{userId}")
     public ResponseEntity<ReqRes> updateUser(@PathVariable Integer userId, @RequestBody OurUsers reqres){
         return ResponseEntity.ok(usersManagementService.updateUser(userId, reqres));
     }
 
-    @GetMapping("/adminuser/get-profile")
+    @GetMapping("/manager/get-profile")
     public ResponseEntity<ReqRes> getMyProfile(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
@@ -54,10 +52,8 @@ public class UserManagementController {
         return  ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @DeleteMapping("/admin/delete/{userId}")
-    public ResponseEntity<ReqRes> deleteUSer(@PathVariable Integer userId){
+    @DeleteMapping("/manager/delete/{userId}")
+    public ResponseEntity<ReqRes> deleteUser(@PathVariable Integer userId){
         return ResponseEntity.ok(usersManagementService.deleteUser(userId));
     }
-
-
 }
